@@ -5,6 +5,9 @@ module DLinkedList
     # Clase Referencia
 	class Referencia
 	
+		# Incluye Comparable
+		include Comparable
+		
 		attr_reader :autores, :titulo, :fecha_publicacion
 		
 		def initialize(autores, titulo, fecha_publicacion)
@@ -17,6 +20,16 @@ module DLinkedList
 			@autores.each() { |a| s << a << ', '}
 			s << "(#{@fecha_publicacion}). #{@titulo}."
 			return s
+		end
+		
+		# La comparación es por orden alfabético de autores y por orden alfabético de títulos si hay igualdad en los autores
+		def <=>(c_ref)
+			autores_ord = autores.join(", ") <=> c_ref.autores.join(", ")
+			if autores_ord == 0
+				return titulo <=> c_ref.titulo
+			else
+				return autores_ord
+			end
 		end
 		
 	end
