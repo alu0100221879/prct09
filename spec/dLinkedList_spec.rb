@@ -18,6 +18,7 @@ describe DLinkedList do
     end
     
     describe "Referencia" do
+		
 		it "# El objeto Referencia básica debe ser de tipo Referencia" do
 			expect(@r1).to be_instance_of(DLinkedList::Referencia)
 		end
@@ -33,6 +34,35 @@ describe DLinkedList do
 		it "# El objeto Referencia básica debe tener un método para obtener la referencia formateada" do
 			expect(@r1).to respond_to(:to_s)
 		end
+		
+		describe "# El objeto referencia básica es comparable" do
+			
+			before :each do
+				@r2 = DLinkedList::Referencia.new(['M. Magallón'], 'Filosofía política de la educación', '1993')
+				@r3 = DLinkedList::Referencia.new(['M. Magallón'], 'La democracia en América Latina', '1991')
+			end
+			
+			it "# Operador <" do
+				expect(@r1).to be < @r2
+				expect(@r2).to be < @r3
+			end
+			it "# Operador <=" do
+				expect(@r1).to be <= @r2
+				expect(@r2).to be <= @r3
+			end
+			it "# Igualdad" do
+				expect(@r1).to eql(@r1)
+			end
+			it "# Operador >" do
+				expect(@r2).to be > @r1
+				expect(@r3).to be > @r2
+			end
+			it "# Operador >=" do
+				expect(@r2).to be >= @r1
+				expect(@r3).to be >= @r2
+			end
+		end
+		
 	end
 	
 	describe "Libro" do
