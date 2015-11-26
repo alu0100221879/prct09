@@ -160,6 +160,38 @@ describe DLinkedList do
   			expect(@list.size).to eql(4)
   		end
   		
+  		describe "# La lista es enumerable" do
+  		
+  			before :each do
+  				
+  				@le = DLinkedList::List.new()
+  				@le.push_multi(@r1, @l1, @a1, @d1)
+  				  			
+  			end
+  			
+  			it "# Tipado" do
+  				expect(@list).to be_kind_of(Enumerable)
+  			end
+  			
+  			it "# Método all?" do
+				expect(@le.all? { |ref| ref.kind_of?(DLinkedList::Referencia)}).to eql(true)
+  			end
+  			
+  			it "# Método any?" do
+  				expect(@le.any? { |ref| ref.titulo == 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide'}).to eql(true)
+  			end
+  			
+  			it "# Método count" do
+  				expect(@le.count).to eql(4)
+  			end
+  			
+  			it "# Método find_all" do
+  				edoc_arr = @le.find_all{ |ref| ref.instance_of?(DLinkedList::EDocumento)}
+  				expect(edoc_arr.length).to eql(1)
+  			end
+
+  		end
+  		
   	end
     
 end
