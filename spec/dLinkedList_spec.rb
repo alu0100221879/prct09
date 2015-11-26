@@ -8,7 +8,7 @@ describe DLinkedList do
     before :each do
         
         @r1 = DLinkedList::Referencia.new(['Dave Thomas', 'Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', '7 de Julio, 2013')
-        @l1 = DLinkedList::Libro.new(['Dave Thomas', 'Andy Hunt', 'Chad Fowler'], 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide', '7 de Julio, 2013', 4, 'Dallas, Texas', 'Pragmatic Bookshelf')
+        @l1 = DLinkedList::Libro.new(['David Flanagan', 'Yukihiro Matsumoto'], 'The Ruby Programming Language', '4 Febrero, 2008', 1, 'Dallas, Texas', 'O’Reilly Media')
 		@a1 = DLinkedList::Articulo.new(['M. Vargas'], 'El elefante y la cultura', 'Septiembre, 1982', 'Revista Vuelta', '13-16')
 		@d1 = DLinkedList::EDocumento.new(['M. Magallón'], 'Filosofía política de la educación', '1993', '5 de Febrero, 2009', 'http://bidi.unam.mx/libroe_2007/0638679/Index.html')
 		
@@ -42,6 +42,10 @@ describe DLinkedList do
 				@r3 = DLinkedList::Referencia.new(['M. Magallón'], 'La democracia en América Latina', '1991')
 			end
 			
+			it "# Tipado" do
+  				expect(@r1).to be_kind_of(Comparable)
+  			end
+			
 			it "# Operador <" do
 				expect(@r1).to be < @r2
 				expect(@r2).to be < @r3
@@ -73,22 +77,22 @@ describe DLinkedList do
 			expect(@l1).to be_kind_of(DLinkedList::Referencia)
 		end
 		it "# El objeto Libro debe tener un atributo multivalor para el/los autor/es" do
-			expect(@l1).to have_attributes(:autores => ['Dave Thomas', 'Andy Hunt', 'Chad Fowler'])
+			expect(@l1).to have_attributes(:autores => ['David Flanagan', 'Yukihiro Matsumoto'])
 		end
 		it "# El objeto Libro debe tener un atributo para el título de la referencia" do
-			expect(@l1).to have_attributes(:titulo => 'Programming Ruby 1.9 & 2.0: The Pragmatic Programmers Guide')
+			expect(@l1).to have_attributes(:titulo => 'The Ruby Programming Language')
 		end
 		it "# El objeto Libro debe tener un atributo para la fecha de publicación" do
-			expect(@l1).to have_attributes(:fecha_publicacion => '7 de Julio, 2013')
+			expect(@l1).to have_attributes(:fecha_publicacion => '4 Febrero, 2008')
 		end
 		it "# El objeto Libro debe tener un atributo para la edición" do
-			expect(@l1).to have_attributes(:edicion => 4)
+			expect(@l1).to have_attributes(:edicion => 1)
 		end
 		it "# El objeto Libro debe tener un atributo para el lugar de publicación" do
 			expect(@l1).to have_attributes(:lugar_publicacion => 'Dallas, Texas')
 		end
 		it "# El objeto Libro debe tener un atributo para la editorial" do
-			expect(@l1).to have_attributes(:editorial => 'Pragmatic Bookshelf')
+			expect(@l1).to have_attributes(:editorial => 'O’Reilly Media')
 		end
 		it "# El objeto Libro debe tener un método para obtener la referencia formateada" do
 			expect(@l1).to respond_to(:to_s)
@@ -218,6 +222,18 @@ describe DLinkedList do
   			it "# Método find_all" do
   				edoc_arr = @le.find_all{ |ref| ref.instance_of?(DLinkedList::EDocumento)}
   				expect(edoc_arr.length).to eql(1)
+  			end
+  			
+  			it "# Método min" do
+  				expect(@le.min).to equal(@r1)
+  			end
+  			
+  			it "# Método max" do
+  				expect(@le.max).to equal(@a1)
+  			end
+  			
+  			it "# Método sort" do
+  				expect(@le.sort).to eql([@r1, @l1, @d1, @a1])
   			end
 
   		end
